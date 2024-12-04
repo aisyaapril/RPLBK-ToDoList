@@ -1,10 +1,11 @@
-/* App.css */
+/* Pastikan html dan body memiliki tinggi penuh */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
+/* App.css */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -12,10 +13,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Pastikan body mengisi seluruh layar */
+  height: 100%; /* Pastikan body memiliki tinggi penuh */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Menjaga latar belakang tetap saat scroll */
+  background-attachment: fixed;
   transition: background-image 0.5s ease-in-out;
 }
 
@@ -27,7 +28,22 @@ body {
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   width: 100%;
-  height: 100%; /* Pastikan app mengisi seluruh ruang */
+  height: 100%;
+  position: relative; /* Menjaga posisi elemen */
+  z-index: -1; /* Menempatkan elemen di belakang */
+}
+
+.app-container {
+  position: relative; /* Memastikan elemen berada di atas */
+  z-index: 1; /* Elemen ini berada di atas background */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 button {
@@ -65,22 +81,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-.app-container {
-  width: 100%;
-  height: 100vh; /* Memastikan kontainer mengisi seluruh tinggi layar */
-  max-width: 600px; /* Menjaga lebar kontainer responsif */
-  margin: 0 auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
 .logout-btn,
 .toggle-btn {
   background-color: #007bff;
@@ -101,10 +101,8 @@ button:hover {
 
 .dashboard {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* Menambahkan jarak antar elemen */
 }
 
 button {

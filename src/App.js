@@ -26,13 +26,11 @@ function App() {
   };
 
   const [wallpaper, setWallpaper] = useState('');
-  const [images, setImages] = useState([]);
-  const [showGallery, setShowGallery] = useState(false);
 
   const fetchRandomWallpaper = async () => {
     try {
       const response = await fetch(
-        `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&orientation=landscape`
+        `https://api.unsplash.com/photos/random?client_id=${UNSPLASH_ACCESS_KEY}&orientation=landscape&w=1920&h=1080`
       );
       const data = await response.json();
       setWallpaper(data.urls.full); // Set background image
@@ -47,29 +45,24 @@ function App() {
   }, []);
 
   return (
-    <><div
-      className="app"
-      style={{
-        backgroundImage: `url(${wallpaper})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-      }}
-    >
+    <>
+      {/* Wallpaper div */}
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${wallpaper})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          zIndex: -1, // Pastikan berada di belakang semua elemen
+        }}
+      ></div>
 
-      {showGallery && (
-        <div className="gallery">
-          {images.map((image) => (
-            <div key={image.id} className="gallery-item">
-              <img
-                src={image.urls.thumb}
-                alt={image.alt_description}
-                onClick={() => setWallpaper(image.urls.full)} />
-            </div>
-          ))}
-        </div>
-      )}
-    </div><div className="app-container">
+      {/* Kontainer utama aplikasi */}
+      <div className="app-container">
         {isLoggedIn ? (
           <div className="dashboard">
             <button className="logout-btn" onClick={handleLogout}>
@@ -81,11 +74,13 @@ function App() {
         ) : isRegistering ? (
           <Register
             onRegister={handleRegister}
-            toggleLogin={() => setIsRegistering(false)} />
+            toggleLogin={() => setIsRegistering(false)}
+          />
         ) : (
           <Login
             onLogin={handleLogin}
-            toggleRegister={() => setIsRegistering(true)} />
+            toggleRegister={() => setIsRegistering(true)}
+          />
         )}
         {!isLoggedIn && (
           <button
@@ -95,7 +90,8 @@ function App() {
             {isRegistering ? 'Back to Login' : 'Register'}
           </button>
         )}
-      </div></>
+      </div>
+    </>
   );
 }
 
